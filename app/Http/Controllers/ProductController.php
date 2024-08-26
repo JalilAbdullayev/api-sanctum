@@ -28,14 +28,14 @@ class ProductController extends Controller {
     /**
      * Display the specified resource.
      */
-    public function show(string $id) {
+    public function show(int $id) {
         return Product::find($id);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id) {
+    public function update(Request $request, int $id) {
         $product = Product::find($id);
         $product->update($request->all());
         return $product;
@@ -44,7 +44,14 @@ class ProductController extends Controller {
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id) {
+    public function destroy(int $id) {
         return Product::destroy($id);
+    }
+
+    /**
+     * Search for a name.
+     */
+    public function search(string $name) {
+        return Product::where('name', 'like', '%' . $name . '%')->get();
     }
 }
